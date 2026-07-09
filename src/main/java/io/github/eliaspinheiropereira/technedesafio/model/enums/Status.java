@@ -9,6 +9,16 @@ public enum Status {
 
     @JsonCreator
     public static Status fromString(String valor) {
-        return Status.valueOf(valor.toUpperCase().trim());
+        if (valor == null || valor.trim().isEmpty()) {
+            throw new IllegalArgumentException("Status não pode ser vazio");
+        }
+
+        try {
+            return Status.valueOf(valor.toUpperCase().trim());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(
+                    String.format("Status '%s' inválido. Valores aceitos: aberta, fechada, cancelada", valor)
+            );
+        }
     }
 }
