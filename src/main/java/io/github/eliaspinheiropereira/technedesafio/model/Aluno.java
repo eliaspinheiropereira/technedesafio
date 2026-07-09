@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "alunos")
@@ -18,7 +20,10 @@ public class Aluno {
     private String email;
     private LocalDate dataNascimento;
     private LocalDate dataCadastro;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     @JoinColumn(name = "endereco_id", referencedColumnName = "id", unique = true)
     private Endereco endereco;
+
+
 }
