@@ -1,0 +1,31 @@
+# Arquivos de Sistema
+.DS_Store
+Thumbs.db
+
+# Maven
+target/
+.m2/
+*.jar
+*.war
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.classpath
+.project
+.settings/
+*.iml
+
+# Git
+.git
+.gitignore
+
+# Outros
+.env
+.env.local
+README.md
+HELP.md
+
