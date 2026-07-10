@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  technedesafio-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: technedesafio-api
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: default
+    networks:
+      - technedesafio-network
+
+networks:
+  technedesafio-network:
+    driver: bridge
+
