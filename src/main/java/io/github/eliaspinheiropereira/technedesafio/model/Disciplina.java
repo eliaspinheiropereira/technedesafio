@@ -21,10 +21,6 @@ public class Disciplina {
     @JoinColumn(name = "curso_id", referencedColumnName = "id", nullable = false)
     private Curso curso;
 
-    @OneToMany(
-            mappedBy = "disciplina",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @ManyToMany(mappedBy = "disciplinas")
     private List<Turma> turmas = new ArrayList<>();
 }

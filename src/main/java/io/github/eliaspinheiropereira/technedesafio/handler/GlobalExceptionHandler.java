@@ -9,6 +9,8 @@ import io.github.eliaspinheiropereira.technedesafio.exception.CursoNaoEncontrado
 import io.github.eliaspinheiropereira.technedesafio.exception.DisciplinaCadastradoException;
 import io.github.eliaspinheiropereira.technedesafio.exception.DisciplinaNaoEncontradoException;
 import io.github.eliaspinheiropereira.technedesafio.exception.EnderecoNaoEncontradoException;
+import io.github.eliaspinheiropereira.technedesafio.exception.TurmaCadastradoException;
+import io.github.eliaspinheiropereira.technedesafio.exception.TurmaNaoEncontradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -133,17 +135,56 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(resposta);
     }
 
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErroRespostaResponse> handleGenericException(Exception ex) {
+    @ExceptionHandler(TurmaNaoEncontradoException.class)
+    public ResponseEntity<ErroRespostaResponse> handleTurmaNaoEncontradoException(
+            TurmaNaoEncontradoException ex) {
 
         ErroRespostaResponse resposta = new ErroRespostaResponse(
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                "Erro interno do servidor",
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
                 List.of()
         );
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resposta);
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resposta);
     }
+
+    @ExceptionHandler(TurmaCadastradoException.class)
+    public ResponseEntity<ErroRespostaResponse> handleTurmaCadastradoException(
+            TurmaCadastradoException ex) {
+
+        ErroRespostaResponse resposta = new ErroRespostaResponse(
+                HttpStatus.CONFLICT.value(),
+                ex.getMessage(),
+                List.of()
+        );
+
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(resposta);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErroRespostaResponse> handleIllegalArgumentException(
+            IllegalArgumentException ex) {
+
+        ErroRespostaResponse resposta = new ErroRespostaResponse(
+                HttpStatus.BAD_REQUEST.value(),
+                ex.getMessage(),
+                List.of()
+        );
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(resposta);
+    }
+
+
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ErroRespostaResponse> handleGenericException(Exception ex) {
+//
+//        ErroRespostaResponse resposta = new ErroRespostaResponse(
+//                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+//                "Erro interno do servidor",
+//                List.of()
+//        );
+//
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(resposta);
+//    }
 }
 
