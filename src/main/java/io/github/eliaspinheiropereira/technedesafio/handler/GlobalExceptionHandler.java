@@ -9,6 +9,7 @@ import io.github.eliaspinheiropereira.technedesafio.exception.CursoNaoEncontrado
 import io.github.eliaspinheiropereira.technedesafio.exception.DisciplinaCadastradoException;
 import io.github.eliaspinheiropereira.technedesafio.exception.DisciplinaNaoEncontradoException;
 import io.github.eliaspinheiropereira.technedesafio.exception.EnderecoNaoEncontradoException;
+import io.github.eliaspinheiropereira.technedesafio.exception.MatriculaException;
 import io.github.eliaspinheiropereira.technedesafio.exception.TurmaCadastradoException;
 import io.github.eliaspinheiropereira.technedesafio.exception.TurmaNaoEncontradoException;
 import org.springframework.http.HttpStatus;
@@ -159,6 +160,19 @@ public class GlobalExceptionHandler {
         );
 
         return ResponseEntity.status(HttpStatus.CONFLICT).body(resposta);
+    }
+
+    @ExceptionHandler(MatriculaException.class)
+    public ResponseEntity<ErroRespostaResponse> handleMatriculaException(
+            MatriculaException ex) {
+
+        ErroRespostaResponse resposta = new ErroRespostaResponse(
+                HttpStatus.NOT_FOUND.value(),
+                ex.getMessage(),
+                List.of()
+        );
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(resposta);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

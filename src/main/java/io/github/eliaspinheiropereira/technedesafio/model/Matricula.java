@@ -1,8 +1,10 @@
 package io.github.eliaspinheiropereira.technedesafio.model;
 
+import io.github.eliaspinheiropereira.technedesafio.model.enums.StatusMatricula;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -11,8 +13,16 @@ import java.util.UUID;
 public class Matricula {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID codigoMatricula;
+    private LocalDate dataMatricula;
+    private StatusMatricula statusMatricula;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "aluno_id", referencedColumnName = "id", nullable = false)
+    private Aluno aluno;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "turma_id", referencedColumnName = "id", nullable = false)
+    private Turma turma;
 }

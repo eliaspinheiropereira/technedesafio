@@ -25,5 +25,7 @@ public class Aluno {
     @JoinColumn(name = "endereco_id", referencedColumnName = "id", unique = true)
     private Endereco endereco;
 
+    @OneToMany(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Matricula> matriculas = new ArrayList<>();
 
 }
